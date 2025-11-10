@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner-image",
+      "settings": {
+        "image": ""
+      }
+    },
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "sidebar": {
+          "type": "sidebar",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "sidebar"
+      ],
+      "settings": {
+        "text": "",
+        "posts_per_page": 20,
+        "image_align": "left",
+        "text_align": "center",
+        "show_date": true,
+        "show_author": true,
+        "show_above": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Subscribe to our newsletter",
+        "subheading": "<p>Signup for our newsletter to stay up to date on sales and events.</p>",
+        "color_scheme": "none",
+        "section_padding": "both"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "breadcrumbs",
+    "main",
+    "newsletter"
+  ]
+}

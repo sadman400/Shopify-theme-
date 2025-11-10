@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner-image",
+      "settings": {
+        "image": ""
+      }
+    },
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-404",
+      "settings": {}
+    },
+    "1631638325ea9b597f": {
+      "type": "collection-list",
+      "blocks": {
+        "1631638325ea9b597f-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "1631638325ea9b597f-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "1631638325ea9b597f-0",
+        "1631638325ea9b597f-1"
+      ],
+      "settings": {
+        "title": "Order Now",
+        "collections_per_row": 2,
+        "color_scheme": "none",
+        "section_padding": "both"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "breadcrumbs",
+    "main",
+    "1631638325ea9b597f"
+  ]
+}
