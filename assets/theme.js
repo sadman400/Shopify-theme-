@@ -960,17 +960,31 @@ theme.Helpers = (function() {
     };
   }
 
-  function makeSticky(amountToScroll, elementClass, elementHeight) {
-    const clearElement = document.querySelector(".js-clear-element"),
-          stickyElement = document.querySelector(elementClass),
-          height = elementHeight  + "px";
+  function makeSticky(threshold, elementSelector, elementHeight) {
+    const stickyElement = document.querySelector(elementSelector);
+    const clearElement = document.querySelector(".js-clear-element");
+    
+    if (!stickyElement) {
+      console.warn(`Sticky element not found: ${elementSelector}`);
+      return;
+    }
 
-    if (window.pageYOffset >= amountToScroll) {
+    const currentScroll = window.pageYOffset || window.scrollY;
+    const isAtTop = currentScroll <= 10; // Small buffer for smooth behavior
+    const shouldBeSticky = currentScroll >= threshold && !isAtTop;
+
+    if (shouldBeSticky) {
+      // Activate sticky navigation
       stickyElement.classList.add('sticky--active');
-      clearElement.style.height = height;
+      if (clearElement) {
+        clearElement.style.height = `${elementHeight}px`;
+      }
     } else {
+      // Deactivate sticky navigation
       stickyElement.classList.remove('sticky--active');
-      clearElement.style.height = "0px";
+      if (clearElement) {
+        clearElement.style.height = "0px";
+      }
     }
   }
 
@@ -3470,23 +3484,14 @@ theme.Header = (function() {
         announcements: '.js-site-announcement-bar',
         navigation: '.js-theme-header',
         header: '.js-site-header'
-      }
+      };
 
       let totalHeight = 0;
-
-      const elements = {
-        carousel: document.querySelector(selectors.carousel),
-        announcements: document.querySelector(selectors.announcements),
-        navigation: document.querySelector(selectors.navigation),
-        header: document.querySelector(selectors.header)
-      }
-
-      const previousSiblings = getPreviousSiblings(elements["header"]);
-
-      if (previousSiblings.length > 0) {
-        previousSiblings.forEach((previousSibling) => {
-          totalHeight += previousSibling.clientHeight;
-        });
+      const headerElement = document.querySelector(selectors.header);
+      
+      if (!headerElement) {
+        console.warn('Header element not found for scroll calculation');
+        return 100; // Fallback value
       }
 
       // Helper function to get all previous siblings
@@ -3500,40 +3505,65 @@ theme.Header = (function() {
         return siblings;
       }
 
-      const navigationHeight = elements.navigation.clientHeight;
-      const headerHeight = elements.header.clientHeight;
-
-      if (window.matchMedia('(min-width: 740px)').matches) {
-        totalHeight += (headerHeight - navigationHeight);
+      // Calculate height of all elements above the header
+      const previousSiblings = getPreviousSiblings(headerElement);
+      if (previousSiblings.length > 0) {
+        previousSiblings.forEach((sibling) => {
+          if (sibling.offsetHeight > 0) { // Only count visible elements
+            totalHeight += sibling.offsetHeight;
+          }
+        });
       }
 
-      return totalHeight;
+      // Add header height calculation for desktop
+      const navigationElement = document.querySelector(selectors.navigation);
+      if (window.matchMedia('(min-width: 740px)').matches && navigationElement) {
+        const headerHeight = headerElement.offsetHeight;
+        const navigationHeight = navigationElement.offsetHeight;
+        totalHeight += Math.max(0, headerHeight - navigationHeight);
+      }
+
+      return Math.max(totalHeight, 0); // Ensure we never return negative values
     }
 
     function prepareSticky() {
-      let isMobile = window.innerWidth < 740,
-          elementClass,
-          elementHeight,
-          amountToScroll;
+      const isMobile = window.innerWidth < 740;
+      const currentScroll = window.pageYOffset || window.scrollY;
+      
+      // Determine which element to make sticky based on screen size
+      const stickyConfig = isMobile 
+        ? {
+            selector: selectors.mobileHeader,
+            element: document.querySelector(selectors.mobileHeader)
+          }
+        : {
+            selector: selectors.header,
+            element: document.querySelector(selectors.header)
+          };
 
-      if (isMobile) {
-        amountToScroll = getAmountToScroll();
-        elementClass = selectors.mobileHeader;
-        elementHeight = document.querySelector(selectors.mobileHeader)?.clientHeight;
-      } else {
-        amountToScroll = getAmountToScroll();
-        elementClass = selectors.header;
-        elementHeight = document.querySelector(selectors.header)?.clientHeight;
+      if (!stickyConfig.element) {
+        console.warn('Sticky element not found');
+        return;
       }
 
+      // Calculate the scroll threshold
+      const scrollThreshold = getAmountToScroll();
+      const elementHeight = stickyConfig.element.clientHeight;
+
+      // Set CSS custom property for header height
       document.body.style.setProperty('--header-height', `${elementHeight}px`);
 
-      const headerEl = document.querySelector(elementClass);
-      if (window.scrollY <= 0 && headerEl) {
-        headerEl.classList.remove('stickynav', 'is-sticky', 'stuck', 'sticky');
+      // Clean up sticky classes when at the very top
+      if (currentScroll <= 5) {
+        stickyConfig.element.classList.remove('is-sticky', 'stuck', 'sticky', 'sticky--active');
+        const clearElement = document.querySelector(".js-clear-element");
+        if (clearElement) {
+          clearElement.style.height = "0px";
+        }
       }
 
-      return theme.Helpers.makeSticky(amountToScroll, elementClass, elementHeight);
+      // Apply sticky behavior
+      theme.Helpers.makeSticky(scrollThreshold, stickyConfig.selector, elementHeight);
     }
 
     // Aria support
