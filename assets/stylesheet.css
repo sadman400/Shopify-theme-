@@ -8130,6 +8130,212 @@ h5.header__linklist-header {
   width: 100% !important;
 }
 
+/* Sticky Navigation Logo and Cart */
+.sticky-nav-logo,
+.sticky-nav-cart,
+.sticky-nav-logo-inline,
+.sticky-nav-cart-inline {
+  display: none;
+  align-items: center;
+}
+
+/* Block Layout Sticky - Logo and Cart in Nav */
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-logo {
+  display: flex;
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+}
+
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-logo a {
+  display: flex;
+  align-items: center;
+}
+
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-logo img {
+  max-height: 40px;
+  width: auto;
+}
+
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-cart {
+  display: flex;
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+}
+
+/* Inline Layout Sticky - Logo and Cart */
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active .sticky-nav-logo-inline {
+  display: flex;
+  align-items: center;
+  margin-left: 4%;
+}
+
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active .sticky-nav-logo-inline a {
+  display: flex;
+  align-items: center;
+}
+
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active .sticky-nav-logo-inline img {
+  max-height: 40px;
+  width: auto;
+}
+
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active .sticky-nav-cart-inline {
+  display: flex;
+  align-items: center;
+  margin-right: 4%;
+}
+
+/* Hide original logo and cart when sticky is active */
+.header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active ~ .header__block-top-wrapper {
+  display: none;
+}
+
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active > #logo {
+  display: none;
+}
+
+.header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active > #shopping-links {
+  display: none;
+}
+
+/* Product Page - Sticky Nav Always Active */
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo,
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-cart {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo {
+  left: 4%;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-cart {
+  right: 4%;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo a {
+  display: flex;
+  align-items: center;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo img {
+  max-height: 40px;
+  width: auto;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+.template-product .header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active {
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+.template-product .header__wrapper.block-layout-true .header__block-top-wrapper {
+  display: none;
+}
+
+/* Product Page - Inline Layout */
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-logo-inline,
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-cart-inline {
+  display: flex;
+  align-items: center;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-logo-inline {
+  margin-left: 4%;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-cart-inline {
+  margin-right: 4%;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-logo-inline a {
+  display: flex;
+  align-items: center;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav .sticky-nav-logo-inline img {
+  max-height: 40px;
+  width: auto;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav {
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav.sticky--active {
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav > #logo,
+.template-product .header__wrapper.inline-layout-true .header__main-wrapper.stickynav > #shopping-links {
+  display: none;
+}
+
+/* Product Page - Mobile Header */
+.template-product .header__mobile-container.stickynav {
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+.template-product .header__mobile-container.stickynav.sticky--active {
+  background: #3f1300 !important;
+  background-color: #3f1300 !important;
+}
+
+/* Responsive adjustments for sticky nav */
+@media (max-width: 1200px) {
+  .header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-logo img {
+    max-height: 35px;
+  }
+  
+  .template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo img {
+    max-height: 35px;
+  }
+}
+
+@media (max-width: 740px) {
+  .header__wrapper.block-layout-true .header__main-nav.stickynav.sticky--active .sticky-nav-logo img {
+    max-height: 30px;
+  }
+  
+  .template-product .header__wrapper.block-layout-true .header__main-nav.stickynav .sticky-nav-logo img {
+    max-height: 30px;
+  }
+  
+  /* Mobile product page - ensure proper logo sizing */
+  .template-product .header__mobile-container #logo img {
+    max-height: 35px;
+  }
+}
+
 /*
  * Grid
  */

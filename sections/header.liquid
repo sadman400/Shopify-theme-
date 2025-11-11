@@ -62,9 +62,21 @@
 >
   {% capture nav_template %}
     <ul id="main-nav" class="{{ menu_span }} nav header__main-nav header__nav__list {% if block_layout or search_layout %}js-theme-header stickynav{% endif %}">
+      <div class="sticky-nav-logo">
+        {% if section.settings.logo != blank %}
+          <a href="{{ routes.root_url }}">
+            {{ section.settings.logo | image_url: width: 150 | image_tag: loading: 'eager' }}
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+        {% endif %}
+      </div>
       {% for link in linklists[section.settings.main_nav].links %}
         {% render 'navigation', link: link %}
       {% endfor %}
+      <div class="sticky-nav-cart">
+        {% render 'shopping-cart-links', cart: cart, is_mobile: false, hd_currency_selector: false, hd_locale_selector: false, show_cart_links: true %}
+      </div>
     </ul>
   {% endcapture %}
 
@@ -212,9 +224,21 @@
         {{ nav_template }}
 
       {% elsif inline_layout %}
+        <div class="sticky-nav-logo-inline">
+          {% if section.settings.logo != blank %}
+            <a href="{{ routes.root_url }}">
+              {{ section.settings.logo | image_url: width: 150 | image_tag: loading: 'eager' }}
+            </a>
+          {% else %}
+            <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+          {% endif %}
+        </div>
         {{ logo_template }}
         {{ nav_template }}
         {{ shop_links_template }}
+        <div class="sticky-nav-cart-inline">
+          {% render 'shopping-cart-links', cart: cart, is_mobile: false, hd_currency_selector: false, hd_locale_selector: false, show_cart_links: true %}
+        </div>
       {% endif %}
     </div>
   {% endunless %}
