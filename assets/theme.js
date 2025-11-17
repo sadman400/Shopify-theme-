@@ -3547,14 +3547,21 @@ theme.Header = (function() {
       }
 
       // Calculate the scroll threshold
-      const scrollThreshold = getAmountToScroll();
+      let scrollThreshold = getAmountToScroll();
+      
+      // On cart pages, show sticky navigation immediately (no scroll needed)
+      const isCartPage = document.body.classList.contains('template-cart');
+      if (isCartPage) {
+        scrollThreshold = 0;
+      }
+      
       const elementHeight = stickyConfig.element.clientHeight;
 
       // Set CSS custom property for header height
       document.body.style.setProperty('--header-height', `${elementHeight}px`);
 
-      // Clean up sticky classes when at the very top
-      if (currentScroll <= 5) {
+      // Clean up sticky classes when at the very top (skip on cart pages)
+      if (currentScroll <= 5 && !isCartPage) {
         stickyConfig.element.classList.remove('is-sticky', 'stuck', 'sticky', 'sticky--active');
         const clearElement = document.querySelector(".js-clear-element");
         if (clearElement) {
